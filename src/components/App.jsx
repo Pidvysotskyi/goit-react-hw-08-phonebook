@@ -16,8 +16,9 @@ export class App extends Component {
   componentDidMount() {
     const localContacts = localStorage.getItem(LOCAL_API_KEY);
     if (localContacts) {
+      const contactsToJson = JSON.parse(localContacts);
       this.setState({
-        contacts: JSON.parse(localContacts),
+        contacts: contactsToJson,
       });
     }
   }
