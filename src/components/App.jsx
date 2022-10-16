@@ -1,21 +1,18 @@
 import { InputForm } from './InputForm/InputForm';
-import { useState, useEffect } from 'react';
 import { Contacts } from './Contacts/Contacts';
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { Container, Heading, Title } from './App.styled';
-
-const LOCAL_API_KEY = 'contacts';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/filterSlice';
+import { addContact, removeContact } from 'redux/contactsSlice';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(localStorage.getItem(LOCAL_API_KEY)) ?? [];
-  });
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(state => state.contacts.array);
 
-  useEffect(() => {
-    window.localStorage.setItem(LOCAL_API_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  const dispatch = useDispatch();
+
+  const filter = useSelector(state => state.filter);
 
   const formSubmitHandler = newData => {
     newData.id = nanoid();
@@ -23,7 +20,7 @@ export const App = () => {
       alert(`${newData.name} is already in contacts`);
       return;
     }
-    setContacts(prevState => [...prevState, newData]);
+    dispatch(addContact(newData));
   };
 
   const checkContactAvailability = newData => {
@@ -33,13 +30,11 @@ export const App = () => {
   };
 
   const contactDeleteHandler = contactId => {
-    const filteredContacts = contacts.filter(({ id }) => {
-      return id !== contactId;
-    });
-    setContacts(filteredContacts);
+    dispatch(removeContact(contactId));
   };
+
   const changeFilter = event => {
-    setFilter(event.currentTarget.value);
+    dispatch(setFilter(event.currentTarget.value));
   };
 
   const getFilteredContacts = () => {
