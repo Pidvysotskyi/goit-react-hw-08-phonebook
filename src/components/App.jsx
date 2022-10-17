@@ -1,33 +1,38 @@
 import { InputForm } from './InputForm/InputForm';
 import { Contacts } from './Contacts/Contacts';
-import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { Container, Heading, Title } from './App.styled';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import {
+  selectContacts,
+  selectFilter,
+  selectIsLoading,
+  selectError,
+} from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/filterSlice';
-import { addContact } from 'redux/operations';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts, addContact, deleteContact } from 'redux/operations';
 
 export const App = () => {
   const contacts = useSelector(selectContacts);
 
-  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+
+  const error = useSelector(selectError);
 
   const filter = useSelector(selectFilter);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   const formSubmitHandler = newData => {
-    newData.id = nanoid();
     if (checkContactAvailability(newData)) {
       alert(`${newData.name} is already in contacts`);
       return;
     }
-    console.log(newData);
     dispatch(addContact(newData));
   };
 
@@ -38,8 +43,7 @@ export const App = () => {
   };
 
   const contactDeleteHandler = contactId => {
-    // dispatch(removeContact(contactId));
-    console.log(contactId);
+    dispatch(deleteContact(contactId));
   };
 
   const changeFilter = event => {
@@ -54,7 +58,6 @@ export const App = () => {
   };
 
   const visibleContacts = getFilteredContacts();
-  console.log(visibleContacts);
 
   return (
     <Container>
@@ -65,6 +68,8 @@ export const App = () => {
         <Filter filterValue={filter} onValueChange={changeFilter} />
       )}
       <Contacts contacts={visibleContacts} onDelete={contactDeleteHandler} />
+      {isLoading && !error && <p>Request in progress...</p>}
+      {error && <b>{error}</b>}
     </Container>
   );
 };
