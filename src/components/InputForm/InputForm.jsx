@@ -4,16 +4,16 @@ import { FormContainer, Lable, Input, Button } from './InputForm.styled';
 
 export const InputForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const data = { name, number };
+  const data = { name, phone };
 
   const onInputName = event => {
     setName(event.target.value);
   };
 
-  const onInputNumber = event => {
-    setNumber(event.target.value);
+  const onInputPhone = event => {
+    setPhone(event.target.value);
   };
 
   const handleSubmit = event => {
@@ -24,7 +24,7 @@ export const InputForm = ({ onSubmit }) => {
 
   const formReset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -47,8 +47,8 @@ export const InputForm = ({ onSubmit }) => {
         <Input
           type="tel"
           name="number"
-          value={number}
-          onChange={onInputNumber}
+          value={phone}
+          onChange={onInputPhone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

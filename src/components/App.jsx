@@ -3,16 +3,23 @@ import { Contacts } from './Contacts/Contacts';
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { Container, Heading, Title } from './App.styled';
+import { selectContacts, selectFilter } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/filterSlice';
-import { addContact, removeContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/operations';
 
 export const App = () => {
-  const contacts = useSelector(state => state.contacts.array);
+  const contacts = useSelector(selectContacts);
 
   const dispatch = useDispatch();
 
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(selectFilter);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const formSubmitHandler = newData => {
     newData.id = nanoid();
@@ -20,6 +27,7 @@ export const App = () => {
       alert(`${newData.name} is already in contacts`);
       return;
     }
+    console.log(newData);
     dispatch(addContact(newData));
   };
 
@@ -30,7 +38,8 @@ export const App = () => {
   };
 
   const contactDeleteHandler = contactId => {
-    dispatch(removeContact(contactId));
+    // dispatch(removeContact(contactId));
+    console.log(contactId);
   };
 
   const changeFilter = event => {
@@ -45,6 +54,7 @@ export const App = () => {
   };
 
   const visibleContacts = getFilteredContacts();
+  console.log(visibleContacts);
 
   return (
     <Container>

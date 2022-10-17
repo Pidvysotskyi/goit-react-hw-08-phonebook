@@ -5,11 +5,11 @@ import { Button } from 'components/InputForm/InputForm.styled';
 export const Contacts = ({ contacts, onDelete }) => {
   return (
     <List>
-      {contacts.map(({ name, id, number }) => {
+      {contacts.map(({ name, id, phone }) => {
         return (
           <ListItem key={id}>
             <span>{name}:</span>
-            <span>{number}</span>
+            <span>{phone}</span>
             <Button onClick={() => onDelete(id)}>Delete</Button>
           </ListItem>
         );
@@ -21,8 +21,9 @@ export const Contacts = ({ contacts, onDelete }) => {
 Contacts.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.exact({
+      createdAt: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
     })
   ),
