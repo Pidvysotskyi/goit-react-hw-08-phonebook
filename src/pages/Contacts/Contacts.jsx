@@ -5,7 +5,7 @@ import { Container, Heading, Title } from './Contacts.styled';
 import { selectContacts, selectIsLoading, selectError } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 
-export const Contacts = () => {
+const Contacts = () => {
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -22,3 +22,5 @@ export const Contacts = () => {
     </Container>
   );
 };
+
+export default Contacts;
