@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { FormContainer, Lable, Input, Button } from './InputForm.styled';
+import { selectContacts } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
 
-export const InputForm = ({ onSubmit }) => {
+export const InputForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-
-  const data = { name, phone };
+  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
 
   const onInputName = event => {
     setName(event.target.value);
@@ -16,9 +18,27 @@ export const InputForm = ({ onSubmit }) => {
     setPhone(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const checkContactAvailability = newData => {
+    return contacts.find(
+      ({ name }) => name.toLowerCase() === newData.name.toLowerCase()
+    );
+  };
+
+  const formSubmitHandler = newData => {
+    if (checkContactAvailability(newData)) {
+      alert(`${newData.name} is already in contacts`);
+      return;
+    }
+    dispatch(addContact(newData));
+  };
+
+  const onSubmit = event => {
     event.preventDefault();
-    onSubmit(data);
+    const name = event.target.elements.name.value;
+    const phone = event.target.elements.phone.value;
+    const data = { name, phone };
+
+    formSubmitHandler(data);
     formReset();
   };
 
@@ -28,7 +48,7 @@ export const InputForm = ({ onSubmit }) => {
   };
 
   return (
-    <FormContainer onSubmit={handleSubmit}>
+    <FormContainer onSubmit={onSubmit}>
       <Lable>
         Name:
         <Input
@@ -46,7 +66,7 @@ export const InputForm = ({ onSubmit }) => {
         Phone:
         <Input
           type="tel"
-          name="number"
+          name="phone"
           value={phone}
           onChange={onInputPhone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -60,6 +80,6 @@ export const InputForm = ({ onSubmit }) => {
   );
 };
 
-InputForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// InputForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
