@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { FormContainer, Lable, Input, Button } from './InputForm.styled';
-import { selectContacts } from 'redux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsOperations';
+import { useState } from "react";
+import { FormContainer, Lable, Input, Button } from "./InputForm.styled";
+import { selectContacts } from "redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "redux/contactsOperations";
 
 export const InputForm = () => {
-  const [name, setName] = useState('');
-  const [number, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [number, setPhone] = useState("");
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
@@ -43,8 +43,8 @@ export const InputForm = () => {
   };
 
   const formReset = () => {
-    setName('');
-    setPhone('');
+    setName("");
+    setPhone("");
   };
 
   return (
@@ -79,7 +79,3 @@ export const InputForm = () => {
     </FormContainer>
   );
 };
-
-// InputForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
