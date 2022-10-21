@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import Navigation from 'components/Navigation/Navigation';
-import UserMenu from 'components/UserMenu/UserMenu';
-import Box from 'components/Box';
+import { Outlet } from "react-router-dom";
+import Navigation from "components/Navigation/Navigation";
+import UserMenu from "components/UserMenu/UserMenu";
+import Box from "components/Box";
+import { Suspense } from "react";
 const Layout = () => {
   return (
     <>
@@ -17,7 +18,9 @@ const Layout = () => {
         <UserMenu />
       </Box>
       <Box as="main" maxWidth="1600px" p="20px">
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </Box>
     </>
   );
