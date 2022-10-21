@@ -1,8 +1,9 @@
-import Box from 'components/Box';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn, selectUser } from 'redux/selectors';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../redux/userOperation';
+import Box from "components/Box";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn, selectUser } from "redux/selectors";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/userOperation";
+import { StyledButton } from "components/Shareble.styled";
 
 const UserMenu = () => {
   const email = useSelector(selectUser).email;
@@ -19,9 +20,9 @@ const UserMenu = () => {
   return (
     <Box display="flex">
       <p>{email}</p>
-      <button type="button" onClick={handleClick}>
+      <StyledButton type="button" onClick={handleClick}>
         Log out
-      </button>
+      </StyledButton>
     </Box>
   );
 };

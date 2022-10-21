@@ -1,7 +1,8 @@
-import { Input, Lable } from 'components/InputForm/InputForm.styled';
-import { selectFilter } from 'redux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/filterSlice';
+import { Input } from "./Filter.styled";
+import { selectFilter } from "redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "redux/filterSlice";
+import { StyledLable } from "components/Shareble.styled";
 
 export const Filter = () => {
   const filterValue = useSelector(selectFilter);
@@ -11,9 +12,9 @@ export const Filter = () => {
     dispatch(setFilter(event.currentTarget.value));
   };
   return (
-    <Lable>
+    <StyledLable>
       Find contact by name
       <Input type="text" value={filterValue} onChange={changeFilter} />
-    </Lable>
+    </StyledLable>
   );
 };

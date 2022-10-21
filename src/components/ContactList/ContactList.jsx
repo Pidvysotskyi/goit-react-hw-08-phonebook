@@ -1,18 +1,15 @@
-import { List, ListItem } from './Contacts.styled';
-import { Button } from 'components/InputForm/InputForm.styled';
-import { selectContacts, selectFilter } from 'redux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, deleteContact } from 'redux/contactsOperations';
-import { useEffect } from 'react';
+import { List, ListItem } from "./ContactList.styled";
+import { selectContacts, selectFilter } from "redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteContact } from "redux/contactsOperations";
+import { Filter } from "components/Filter/Filter";
+import Box from "components/Box";
+import { StyledButton } from "components/Shareble.styled";
 
 export const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   const onDelete = contactId => {
     dispatch(deleteContact(contactId));
@@ -28,16 +25,19 @@ export const ContactList = () => {
   const visibleContacts = getFilteredContacts();
 
   return (
-    <List>
-      {visibleContacts.map(({ name, id, number }) => {
-        return (
-          <ListItem key={id}>
-            <span>{name}:</span>
-            <span>{number}</span>
-            <Button onClick={() => onDelete(id)}>Delete</Button>
-          </ListItem>
-        );
-      })}
-    </List>
+    <Box pt="10px" pr="10px" pb="10px" pl="50px" borderLeft="solid black 1px">
+      <Filter />
+      <List>
+        {visibleContacts.map(({ name, id, number }) => {
+          return (
+            <ListItem key={id}>
+              <span>{name}:</span>
+              <span>{number}</span>
+              <StyledButton onClick={() => onDelete(id)}>Delete</StyledButton>
+            </ListItem>
+          );
+        })}
+      </List>
+    </Box>
   );
 };

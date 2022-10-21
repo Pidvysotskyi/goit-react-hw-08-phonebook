@@ -1,31 +1,11 @@
-import { Formik, Form, Field } from "formik";
-import { useDispatch } from "react-redux";
-import { loginUser } from "redux/userOperation";
+import LoginForm from "components/LoginForm/LoginForm";
+import Box from "components/Box";
 
 const Login = () => {
-  const dispatch = useDispatch();
   return (
-    <>
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values, { resetForm }) => {
-          dispatch(loginUser(values));
-          resetForm();
-        }}
-      >
-        <Form>
-          <label>
-            Email:
-            <Field type="email" name="email" />
-          </label>
-          <label>
-            Password:
-            <Field type="password" name="password" />
-          </label>
-          <button type="submit">login</button>
-        </Form>
-      </Formik>
-    </>
+    <Box p="20px" fontSize="20px">
+      <LoginForm />
+    </Box>
   );
 };
 

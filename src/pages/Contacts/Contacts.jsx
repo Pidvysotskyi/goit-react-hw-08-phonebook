@@ -1,35 +1,28 @@
-import { InputForm } from 'components/InputForm/InputForm';
-import { ContactList } from 'components/ContactList/ContactList';
-import { Filter } from 'components/Filter/Filter';
-import { Container, Heading, Title } from './Contacts.styled';
-import {
-  selectContacts,
-  selectIsLoading,
-  selectError,
-  selectIsLoggedIn,
-} from 'redux/selectors';
-import { useSelector } from 'react-redux';
+import { InputForm } from "components/InputForm/InputForm";
+import { ContactList } from "components/ContactList/ContactList";
+import { selectContacts, selectIsLoading, selectError } from "redux/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import Box from "components/Box";
+import { fetchContacts } from "redux/contactsOperations";
+import { useEffect } from "react";
 
 const Contacts = () => {
+  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const isLogedIn = useSelector(selectIsLoggedIn);
 
-  if (!isLogedIn) {
-    return <p>Please log in or Register to use Contact book</p>;
-  }
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
-    <Container>
-      <Heading>Contacts</Heading>
+    <Box p="20px" fontSize="20px" display="flex">
       <InputForm />
-      {contacts.length > 0 && <Title>Contacts</Title>}
-      {contacts.length > 0 && <Filter />}
-      <ContactList />
+      {contacts.length > 0 && <ContactList />}
       {isLoading && !error && <p>Request in progress...</p>}
       {error && <b>{error}</b>}
-    </Container>
+    </Box>
   );
 };
 
