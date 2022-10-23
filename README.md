@@ -1,5 +1,4 @@
-# goit-react-hw-08-phonebook
-React 8th home task - Phonebook
+Online App - Personal PhoneBook
 
 The Personal PhoneBook, can be used for storing phone contacts of your friends, colleagues and reletives.
 You can add or delete contact in a few simple clicks
