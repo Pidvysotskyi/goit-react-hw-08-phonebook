@@ -26,7 +26,7 @@ const LoginForm = () => {
           Password:
           <StyledField type="password" name="password" />
         </StyledLable>
-        <StyledButton type="submit">login</StyledButton>
+        <StyledButton type="submit">log In</StyledButton>
       </StyledForm>
     </Formik>
   );

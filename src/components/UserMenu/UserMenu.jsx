@@ -4,6 +4,7 @@ import { selectIsLoggedIn, selectUser } from "redux/selectors";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/userOperation";
 import { StyledButton } from "components/Shareble.styled";
+import { Email } from "./UserMenu.styled";
 
 const UserMenu = () => {
   const email = useSelector(selectUser).email;
@@ -18,8 +19,8 @@ const UserMenu = () => {
   }
 
   return (
-    <Box display="flex">
-      <p>{email}</p>
+    <Box display="flex" alignItems="center">
+      <Email>{email}</Email>
       <StyledButton type="button" onClick={handleClick}>
         Log out
       </StyledButton>
