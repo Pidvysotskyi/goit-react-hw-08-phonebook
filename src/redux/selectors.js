@@ -11,3 +11,5 @@ export const selectUser = state => state.user.user;
 export const selectIsLoggedIn = state => state.user.isLoggedIn;
 
 export const selectRefreshing = state => state.user.isRefreshing;
+
+export const selectUserError = state => state.user.userError;

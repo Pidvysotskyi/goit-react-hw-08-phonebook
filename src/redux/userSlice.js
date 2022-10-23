@@ -11,6 +11,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  userError: null,
 };
 
 const userSlice = createSlice({
@@ -26,6 +27,10 @@ const userSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+    },
+    [loginUser.rejected](state, action) {
+      state.isLoggedIn = false;
+      state.userError = action.payload;
     },
     [logoutUser.fulfilled](state, action) {
       state.user = { name: null, email: null };
