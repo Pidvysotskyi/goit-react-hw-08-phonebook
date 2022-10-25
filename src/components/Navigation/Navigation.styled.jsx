@@ -7,8 +7,8 @@ export const StyledLink = styled(NavLink)`
   background-color: #fff;
   padding: 16px;
   border: solid 1px #00006e;
-  border-radius: 4px;
-  margin-right: 20px;
+  border-radius: 3px;
+  margin-right: 18px;
   font-weight: 700;
   &.active {
     color: #fff;

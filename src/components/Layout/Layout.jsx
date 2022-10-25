@@ -11,13 +11,13 @@ const Layout = () => {
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        p="20px"
+        p="22px"
         maxWidth="1600px"
       >
         <Navigation />
         <UserMenu />
       </Box>
-      <Box as="main" maxWidth="1600px" p="20px">
+      <Box as="main" maxWidth="1600px" p="22px">
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
